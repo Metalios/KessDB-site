@@ -3,8 +3,85 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="KessDB whitepaper: proprietary source-available embedded object-document storage for dense Brotli-compressed .kess files and zero-copy read-heavy workloads.">
-  <title>KessDB - Whitepaper</title>
+  <meta name="description" content="KessDB is a source-available embedded object-document database for .NET NativeAOT apps, single-file .kess storage, Brotli compression, and zero-copy read-heavy workloads.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Jason Thompson">
+  <link rel="canonical" href="https://metalios.github.io/KessDB-site/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KessDB - Embedded Object-Document Database for .NET">
+  <meta property="og:description" content="A proprietary, source-available .NET storage engine for single-file .kess databases, Brotli-compressed chunks, NativeAOT, and zero-copy reads.">
+  <meta property="og:url" content="https://metalios.github.io/KessDB-site/">
+  <meta property="og:image" content="https://metalios.github.io/KessDB-site/assets/kessdb-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KessDB - Embedded Object-Document Database for .NET">
+  <meta name="twitter:description" content="Single-file .kess storage with Brotli-compressed chunks, generated POCO codecs, NativeAOT support, and zero-copy read-heavy access.">
+  <meta name="twitter:image" content="https://metalios.github.io/KessDB-site/assets/kessdb-logo.png">
+  <title>KessDB - Embedded Object-Document Database for .NET NativeAOT</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://metalios.github.io/KessDB-site/#software",
+        "name": "KessDB",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, Linux, macOS",
+        "programmingLanguage": "C#",
+        "description": "KessDB is an embedded object-document database engine for .NET NativeAOT applications, single-file .kess storage, Brotli-compressed chunks, source-generated POCO codecs, and zero-copy read-heavy workloads.",
+        "license": "https://metalios.github.io/KessDB-site/LICENSE.md",
+        "author": {
+          "@type": "Person",
+          "name": "Jason Thompson"
+        }
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://metalios.github.io/KessDB-site/#whitepaper",
+        "headline": "KessDB Whitepaper: Hyper-dense object-document storage for read-heavy edge software",
+        "description": "Technical whitepaper for KessDB, a proprietary source-available .NET embedded database proof of concept.",
+        "url": "https://metalios.github.io/KessDB-site/",
+        "author": {
+          "@type": "Person",
+          "name": "Jason Thompson"
+        },
+        "about": {
+          "@id": "https://metalios.github.io/KessDB-site/#software"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://metalios.github.io/KessDB-site/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is KessDB?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "KessDB is an embedded object-document database engine for .NET that writes a single .kess file. It is optimized for dense Brotli-compressed storage, generated POCO codecs, and zero-copy read-heavy access patterns."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is KessDB a SQLite replacement?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. SQLite is a mature embedded relational database with SQL and broad ecosystem support. KessDB targets local keyed object-document data where the application owns the schema and wants compact storage plus fast typed reads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does KessDB support NativeAOT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "KessDB is NativeAOT-oriented. It avoids runtime reflection mapping, expression-tree compilation, and dynamic code generation; typed access is emitted by a C# source generator."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -359,13 +436,15 @@
 </head>
 <body>
   <header class="hero">
-    <img class="hero-logo" src="assets/kessdb-logo.png" alt="">
+    <img class="hero-logo" src="assets/kessdb-logo.png" alt="KessDB logo">
     <div class="wrap">
       <div class="topbar">
         <div class="brand">KessDB</div>
         <nav class="nav" aria-label="Whitepaper navigation">
           <a href="#architecture">Architecture</a>
+          <a href="#fit">Use cases</a>
           <a href="#proof">Proof</a>
+          <a href="#faq">FAQ</a>
           <a href="#boundaries">Boundaries</a>
           <a href="#licensing">Licensing</a>
         </nav>
@@ -374,7 +453,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Source-available technical whitepaper</p>
         <h1>A tiny file that reads like a database.</h1>
-        <p class="lede">KessDB packs typed object documents into one dense `.kess` container, then reads individual records through callback-scoped zero-copy spans instead of object-mapping every lookup through the managed heap.</p>
+        <p class="lede">KessDB is an embedded object-document database for .NET and NativeAOT applications. It packs typed POCO data into one dense `.kess` file, then reads individual records through callback-scoped zero-copy spans instead of object-mapping every lookup through the managed heap.</p>
         <div class="hero-actions">
           <a class="button primary" href="#architecture">Explore the design</a>
           <a class="button" href="#licensing">Commercial status</a>
@@ -407,6 +486,25 @@
       <h2>Mission</h2>
       <p class="lead-section">KessDB exists for read-heavy applications that carry structured data like an asset: game definitions, rules, catalogs, pricing tables, feature packs, static reference models, and periodically refreshed edge data. The goal is to slash infrastructure footprint while keeping keyed reads fast enough to feel local to the CPU.</p>
       <p>It is proprietary, source-available for review, and currently positioned as a proof-of-concept engine for technical evaluation and commercial discussion.</p>
+    </section>
+
+    <section id="fit">
+      <h2>Where KessDB fits</h2>
+      <p class="lead-section">KessDB is designed for teams searching for a compact .NET embedded database, a single-file object-document store, or a NativeAOT-friendly alternative to shipping loose JSON, MessagePack blobs, SQLite tables, or service-backed reference data.</p>
+      <div class="feature-row">
+        <div class="feature">
+          <strong>Game and simulation data</strong>
+          Package powers, items, maps, balancing rules, modifiers, and content catalogs into one compressed `.kess` file with generated typed views.
+        </div>
+        <div class="feature">
+          <strong>Edge and serverless reference data</strong>
+          Keep read-heavy lookup data local to small workers without a database daemon, connection pool, ORM, or network hop.
+        </div>
+        <div class="feature">
+          <strong>Embedded .NET software</strong>
+          Use source-generated codecs and span-based reads in applications that need trim-friendly, NativeAOT-compatible local storage.
+        </div>
+      </div>
     </section>
 
     <section id="architecture" class="dark">
@@ -486,6 +584,20 @@
         </tbody>
       </table>
       <p>Compression wording remains "up to 96.5%" unless the checked-in canonical benchmark report demonstrates that exact threshold.</p>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently asked questions</h2>
+      <h3>What is KessDB?</h3>
+      <p>KessDB is an embedded object-document database engine for .NET that writes a single `.kess` file. It is optimized for dense Brotli-compressed storage, generated POCO codecs, and zero-copy read-heavy access patterns.</p>
+      <h3>Is KessDB a SQLite replacement?</h3>
+      <p>No. SQLite is a mature embedded relational database with SQL and broad ecosystem support. KessDB targets a narrower workload: local keyed object-document data where the application owns the schema and wants compact storage plus fast typed reads.</p>
+      <h3>Does KessDB support NativeAOT?</h3>
+      <p>The architecture is NativeAOT-oriented. It avoids runtime reflection mapping, expression-tree compilation, and dynamic code generation; typed access is emitted by a C# source generator.</p>
+      <h3>Why Brotli?</h3>
+      <p>KessDB uses independent Brotli-compressed chunks to preserve high density while retaining random-access behavior. The default chunk target is tuned around 64 KiB to balance storage footprint and lookup latency.</p>
+      <h3>Can I use this commercially?</h3>
+      <p>Not without a separate written agreement. The project is proprietary and source-available for review, not open source.</p>
     </section>
 
     <section id="boundaries">
