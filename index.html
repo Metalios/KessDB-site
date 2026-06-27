@@ -3,259 +3,349 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="KessDB whitepaper: a proprietary, source-available embedded object-document database for dense Brotli-compressed .kess files and zero-copy read-heavy workloads.">
-  <title>KessDB Whitepaper</title>
+  <meta name="description" content="KessDB whitepaper: proprietary source-available embedded object-document storage for dense Brotli-compressed .kess files and zero-copy read-heavy workloads.">
+  <title>KessDB - Whitepaper</title>
   <style>
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      line-height: 1.6;
-      color: #162029;
-      background: #f5f7fa;
+      line-height: 1.62;
+      color: #14212b;
+      background: #eef3f7;
     }
 
-    header {
-      background: #10202b;
-      color: #f9fbfd;
-      border-bottom: 6px solid #006f8f;
+    a {
+      color: #006f8f;
+      font-weight: 700;
     }
 
     .wrap {
-      width: 1120px;
+      width: 1180px;
       max-width: 94%;
       margin: 0 auto;
     }
 
     .hero {
-      padding: 72px 0 58px;
+      position: relative;
+      overflow: hidden;
+      min-height: 640px;
+      padding: 34px 0 58px;
+      color: #f8fbfd;
+      background: #101f29;
+      border-bottom: 8px solid #d18a20;
+    }
+
+    .hero-logo {
+      position: absolute;
+      right: -120px;
+      top: 32px;
+      width: 680px;
+      max-width: 58%;
+      opacity: 0.26;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: table;
+      width: 100%;
+      padding-bottom: 92px;
+    }
+
+    .brand {
+      display: table-cell;
+      vertical-align: middle;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: table-cell;
+      text-align: right;
+      vertical-align: middle;
+    }
+
+    .nav a {
+      display: inline-block;
+      margin-left: 18px;
+      color: #d6edf4;
+      text-decoration: none;
+      font-size: 0.94rem;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 910px;
     }
 
     .eyebrow {
-      margin: 0 0 18px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+      margin: 0 0 16px;
+      color: #76d2e6;
+      font-weight: 900;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #88d7e8;
     }
 
     h1 {
       margin: 0;
-      max-width: 920px;
-      font-size: 4.6rem;
-      line-height: 0.96;
+      max-width: 980px;
+      font-size: 5.2rem;
+      line-height: 0.95;
       letter-spacing: 0;
     }
 
     .lede {
-      max-width: 850px;
+      max-width: 820px;
       margin: 28px 0 0;
-      font-size: 1.25rem;
-      color: #d9e5ec;
+      font-size: 1.28rem;
+      color: #d8e7ee;
     }
 
-    .meta {
-      margin-top: 30px;
-      color: #c8d6df;
+    .hero-actions {
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 0 12px 12px 0;
+      padding: 12px 18px;
+      border: 2px solid #7bcfe0;
+      color: #f8fbfd;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .button.primary {
+      color: #111f29;
+      background: #7bcfe0;
+      border-color: #7bcfe0;
+    }
+
+    .signal-strip {
+      position: relative;
+      z-index: 2;
+      margin-top: 54px;
+      border-top: 1px solid #324653;
+      border-bottom: 1px solid #324653;
+    }
+
+    .signal {
+      display: inline-block;
+      width: 24%;
+      padding: 18px 16px 18px 0;
+      vertical-align: top;
+    }
+
+    .signal strong {
+      display: block;
+      color: #ffffff;
+      font-size: 1.28rem;
+      line-height: 1.15;
+    }
+
+    .signal span {
+      display: block;
+      margin-top: 7px;
+      color: #b9c9d3;
       font-size: 0.95rem;
     }
 
-    .pill {
-      display: inline-block;
-      margin: 0 8px 8px 0;
-      border: 1px solid #596873;
-      border-radius: 999px;
-      padding: 7px 12px;
-      background: #172a36;
-    }
-
     main {
-      padding: 38px 0 78px;
-    }
-
-    nav {
-      margin: 0 0 30px;
-      padding: 18px;
-      border: 1px solid #d8e0e7;
-      background: #ffffff;
-    }
-
-    nav strong {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    nav a {
-      display: inline-block;
-      margin: 4px 18px 4px 0;
-      color: #006f8f;
-      text-decoration: none;
-      font-weight: 700;
+      padding: 42px 0 76px;
     }
 
     section {
-      margin: 34px 0;
-      padding: 30px;
+      margin: 30px 0;
+      padding: 34px;
       background: #ffffff;
-      border: 1px solid #d8e0e7;
+      border: 1px solid #d6e0e8;
+      box-shadow: 0 16px 40px rgba(16, 31, 41, 0.08);
+    }
+
+    section.dark {
+      color: #f7fbfd;
+      background: #172a36;
+      border-color: #172a36;
     }
 
     h2 {
-      margin: 0 0 14px;
-      font-size: 2rem;
+      margin: 0 0 16px;
+      font-size: 2.25rem;
       line-height: 1.12;
+      letter-spacing: 0;
     }
 
     h3 {
-      margin: 26px 0 8px;
-      font-size: 1.15rem;
+      margin: 28px 0 8px;
+      font-size: 1.18rem;
     }
 
     p {
       margin: 0 0 16px;
     }
 
-    ul {
-      margin: 12px 0 0;
-      padding-left: 22px;
+    .lead-section {
+      font-size: 1.08rem;
+      color: #3d515f;
     }
 
-    li {
-      margin: 8px 0;
+    .dark .lead-section {
+      color: #d7e5ec;
+    }
+
+    .feature-row {
+      margin-top: 24px;
+    }
+
+    .feature {
+      display: inline-block;
+      width: 32%;
+      min-height: 210px;
+      margin: 0 1.2% 18px 0;
+      padding: 20px;
+      vertical-align: top;
+      background: #f7fafc;
+      border: 1px solid #dbe5ec;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #006f8f;
+      font-size: 1.08rem;
+    }
+
+    .dark .feature {
+      background: #213745;
+      border-color: #365160;
+    }
+
+    .dark .feature strong {
+      color: #86dded;
+    }
+
+    .diagram {
+      overflow-x: auto;
+      margin: 20px 0 0;
+      padding: 18px;
+      color: #e9f4f8;
+      background: #0d1820;
+      border-left: 6px solid #d18a20;
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.92rem;
+      line-height: 1.55;
     }
 
     code {
       padding: 2px 5px;
+      background: #edf3f6;
       border-radius: 4px;
-      background: #eef3f6;
-      font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+      font-family: "Cascadia Mono", Consolas, monospace;
       font-size: 0.92em;
     }
 
-    pre {
-      overflow-x: auto;
-      margin: 16px 0 0;
-      padding: 16px;
-      background: #10202b;
-      color: #ecf6fa;
-      border-radius: 6px;
-      line-height: 1.5;
-    }
-
-    pre code {
-      padding: 0;
-      background: transparent;
-      color: inherit;
+    .dark code {
+      color: #ecf8fb;
+      background: #0d1820;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
       margin-top: 18px;
+      border-collapse: collapse;
       font-size: 0.96rem;
     }
 
     th,
     td {
-      padding: 12px;
+      padding: 13px;
       text-align: left;
       vertical-align: top;
-      border-bottom: 1px solid #d8e0e7;
+      border-bottom: 1px solid #d8e2e9;
     }
 
     th {
-      color: #243341;
-      background: #eef3f6;
+      background: #edf3f6;
     }
 
-    .grid {
+    .warning {
       margin-top: 20px;
-    }
-
-    .metric {
-      display: inline-block;
-      width: 31.5%;
-      min-height: 150px;
-      margin: 0 1.2% 16px 0;
       padding: 18px;
-      vertical-align: top;
-      border: 1px solid #d8e0e7;
-      background: #fbfcfd;
+      color: #3b270e;
+      background: #fff5df;
+      border-left: 6px solid #d18a20;
     }
 
-    .metric strong {
-      display: block;
-      font-size: 1.55rem;
-      line-height: 1.1;
-      color: #006f8f;
-    }
-
-    .metric span {
-      display: block;
-      margin-top: 8px;
-      color: #52616d;
-      font-size: 0.95rem;
-    }
-
-    .callout {
-      margin-top: 18px;
-      padding: 16px;
-      border-left: 5px solid #814c00;
-      background: #fff8ec;
-      color: #3b2a12;
+    .licensing {
+      border-top: 6px solid #006f8f;
     }
 
     footer {
-      padding: 28px 0 42px;
-      color: #52616d;
-      border-top: 1px solid #d8e0e7;
+      padding: 30px 0 44px;
+      color: #536674;
+      border-top: 1px solid #d2dde5;
     }
 
-    footer a {
-      color: #006f8f;
-    }
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 0;
+      }
 
-    @media (max-width: 760px) {
-      .wrap {
-        width: auto;
+      .hero-logo {
+        right: -160px;
+        width: 520px;
         max-width: none;
-        margin-left: 12px;
-        margin-right: 12px;
+      }
+
+      .topbar,
+      .brand,
+      .nav {
+        display: block;
+        text-align: left;
+      }
+
+      .topbar {
+        padding-bottom: 58px;
+      }
+
+      .nav {
+        margin-top: 16px;
+      }
+
+      .nav a {
+        margin: 0 14px 8px 0;
       }
 
       h1 {
-        font-size: 2.3rem;
+        font-size: 3.1rem;
       }
 
       .lede {
-        font-size: 1.08rem;
+        font-size: 1.12rem;
       }
 
-      h2 {
-        font-size: 1.55rem;
-      }
-
-      .hero {
-        padding: 48px 0 42px;
-      }
-
-      section {
-        padding: 22px;
-      }
-
-      .grid {
-        display: block;
-      }
-
-      .metric {
+      .signal,
+      .feature {
         display: block;
         width: auto;
         min-height: 0;
         margin-right: 0;
+      }
+
+      section {
+        padding: 24px;
       }
 
       table {
@@ -266,101 +356,107 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap hero">
-      <p class="eyebrow">KessDB Whitepaper</p>
-      <h1>Hyper-dense object-document storage for read-heavy edge software</h1>
-      <p class="lede">KessDB is a proprietary, source-available proof-of-concept database engine that packs typed object documents into a single `.kess` file using Brotli-compressed chunks, source-generated codecs, and callback-scoped zero-copy reads.</p>
-      <div class="meta" aria-label="Document metadata">
-        <span class="pill">Format: KessFormatVersion 1</span>
-        <span class="pill">Runtime: .NET 8 / .NET 10</span>
-        <span class="pill">Owner: Jason Thompson</span>
+  <header class="hero">
+    <img class="hero-logo" src="assets/kessdb-logo.png" alt="">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">KessDB</div>
+        <nav class="nav" aria-label="Whitepaper navigation">
+          <a href="#architecture">Architecture</a>
+          <a href="#proof">Proof</a>
+          <a href="#boundaries">Boundaries</a>
+          <a href="#licensing">Licensing</a>
+        </nav>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Source-available technical whitepaper</p>
+        <h1>A tiny file that reads like a database.</h1>
+        <p class="lede">KessDB packs typed object documents into one dense `.kess` container, then reads individual records through callback-scoped zero-copy spans instead of object-mapping every lookup through the managed heap.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#architecture">Explore the design</a>
+          <a class="button" href="#licensing">Commercial status</a>
+        </div>
+      </div>
+
+      <div class="signal-strip" aria-label="KessDB technical signals">
+        <div class="signal">
+          <strong>Brotli chunks</strong>
+          <span>Independent compressed pages tuned around the 64 KiB default.</span>
+        </div>
+        <div class="signal">
+          <strong>Zero-copy views</strong>
+          <span>Generated `readonly ref struct` views over callback-scoped spans.</span>
+        </div>
+        <div class="signal">
+          <strong>Native AOT</strong>
+          <span>No runtime reflection mapping, expression trees, or dynamic emit.</span>
+        </div>
+        <div class="signal">
+          <strong>One container</strong>
+          <span>`KessFormatVersion = 1` with collections, schema, indexes, and WAL.</span>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <nav aria-label="Whitepaper sections">
-      <strong>Contents</strong>
-      <a href="#abstract">Abstract</a>
-      <a href="#problem">Problem</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#reads">Read Path</a>
-      <a href="#transactions">Transactions</a>
-      <a href="#proof">Proof</a>
-      <a href="#boundaries">Boundaries</a>
-      <a href="#licensing">Licensing</a>
-    </nav>
-
     <section id="abstract">
-      <h2>Abstract</h2>
-      <p>KessDB targets read-heavy applications that carry structured reference data, game definitions, rules, catalogs, pricing tables, or other mostly-local object graphs. Instead of deploying a database server or shipping loose JSON files, KessDB compiles data into a single `.kess` container optimized for compact storage, deterministic validation, and hardware-friendly reads.</p>
-      <p>The engine is built in C# for `net8.0` and `net10.0`, with a Native AOT posture: no runtime reflection mapping, no dynamic code generation, no expression tree compilation, and no SQL or ORM layer. Application documents are mapped by a source generator into explicit codecs and `readonly ref struct` views.</p>
-      <div class="grid">
-        <div class="metric">
-          <strong>One file</strong>
-          <span>Header, manifest, schema, data chunks, optional index chunks, and WAL tail live in one `.kess` file.</span>
+      <h2>Mission</h2>
+      <p class="lead-section">KessDB exists for read-heavy applications that carry structured data like an asset: game definitions, rules, catalogs, pricing tables, feature packs, static reference models, and periodically refreshed edge data. The goal is to slash infrastructure footprint while keeping keyed reads fast enough to feel local to the CPU.</p>
+      <p>It is proprietary, source-available for review, and currently positioned as a proof-of-concept engine for technical evaluation and commercial discussion.</p>
+    </section>
+
+    <section id="architecture" class="dark">
+      <h2>Single-file container architecture</h2>
+      <p class="lead-section">Every release `.kess` database uses one public file-format story: a fixed header, manifest, collection directory, rich schema metadata, data chunks, optional index chunks, and an append-only WAL tail.</p>
+      <pre class="diagram">[KessIndexHeader]
+  -> [DatabaseManifest]
+  -> [CollectionDirectory...]
+  -> [SchemaMetadata]
+  -> [DataChunkEntry...]
+  -> [IndexChunkEntry...]
+  -> [Brotli Data Chunks]
+  -> [Brotli Index Chunks]
+  -> [WAL Tail]</pre>
+      <div class="feature-row">
+        <div class="feature">
+          <strong>Typed documents without runtime mapping</strong>
+          Annotate a POCO with `[KessDocument]` and `[KessKey]`; the generator emits codecs, views, materializers, schema metadata, and index encoders.
         </div>
-        <div class="metric">
-          <strong>64 KiB</strong>
-          <span>Default chunk target balances Brotli density with microsecond-scale lookup behavior.</span>
+        <div class="feature">
+          <strong>Chunk mini-indexes</strong>
+          Each decompressed data chunk contains a primary-key mini-index so records are found by binary search rather than sequential scan.
         </div>
-        <div class="metric">
-          <strong>0 alloc</strong>
-          <span>Steady-state callback reads avoid managed allocations after pools and caches are warmed.</span>
+        <div class="feature">
+          <strong>Persisted secondary indexes</strong>
+          Index chunks hydrate immutable in-memory snapshots for equality, numeric range, string prefix, composite, and unique lookups.
         </div>
       </div>
     </section>
 
-    <section id="problem">
-      <h2>Problem Space</h2>
-      <p>Many applications use database infrastructure for data that behaves more like a compiled asset than a live transactional system. The cost is familiar: server processes, connection pools, serializers, object mappers, cache layers, operational scripts, and memory overhead. For edge nodes, games, serverless workers, and packaged reference datasets, that machinery can be larger than the data problem itself.</p>
-      <p>Plain compressed files reduce footprint but usually sacrifice random access. Traditional embedded relational databases provide excellent reliability and query capability but are not specialized for highly compressed object-document payloads or zero-copy span views. KessDB sits between those models: it keeps database-style durability and indexing primitives, but it stores data like a dense binary asset.</p>
-    </section>
-
-    <section id="architecture">
-      <h2>Architecture</h2>
-      <p>The release-facing API is `KessDatabase` with typed `KessCollection&lt;T&gt;` instances. Every release `.kess` file uses a single container format, identified as `KessFormatVersion = 1`. Optional features such as indexes and richer field metadata are expressed through manifest counts and schema metadata rather than separate public file-format branches.</p>
-      <pre><code>[KessIndexHeader]
-[DatabaseManifest]
-[CollectionDirectory...]
-[SchemaMetadata]
-[DataChunkEntry...]
-[IndexChunkEntry...]
-[Brotli Data Chunks]
-[Brotli Index Chunks]
-[WAL Tail]</code></pre>
-      <h3>Document Mapping</h3>
-      <p>Developers annotate normal partial POCOs or records with `[KessDocument]` and `[KessKey]`. The generator emits a codec, schema metadata, payload writer, materializer, index encoders, and a zero-copy view over `ReadOnlySpan&lt;byte&gt;`. Convention-based field ids are available for quick starts; stable schema names and explicit field ids are available for production files.</p>
-      <h3>Chunk Layout</h3>
-      <p>Base records are grouped into sorted Brotli-compressed chunks. Each decompressed chunk contains a record count, a fixed-width mini-index of primary keys, offsets, and lengths, and a trailing payload zone. This lets the engine binary-search within the chunk instead of scanning or materializing all records.</p>
-      <h3>Secondary Indexes</h3>
-      <p>Generated indexes are collection-scoped and AOT-safe. They support single-field indexes, composite tuple indexes, unique constraints, string prefix lookups, and numeric range lookups. Persisted Brotli-compressed index chunks hydrate immutable in-memory index snapshots at open time.</p>
-    </section>
-
     <section id="reads">
-      <h2>Zero-Copy Read Path</h2>
-      <p>The hot path is callback-scoped. A caller asks for a record through `WithView`, `WithMany`, `WithRange`, or generated index helpers. The engine acquires an immutable read state, resolves the key or index result, reads with offset-based file IO, and invokes the callback with the exact record slice.</p>
-      <pre><code>powers.WithView(42, static record =&gt;
+      <h2>Read path</h2>
+      <p class="lead-section">Hot reads use callback-scoped spans. The caller gets a record slice only for the duration of the callback, and generated views read fields directly from that memory.</p>
+      <pre class="diagram">powers.WithView(42, static record =&gt;
 {
     PowerDocumentView view = new(record);
     int power = view.Power;
     ReadOnlySpan&lt;byte&gt; nameUtf8 = view.NameUtf8;
-});</code></pre>
-      <p>The record span cannot escape the callback. This protects pooled memory lifetime while allowing generated `readonly ref struct` views to expose UTF-8 strings, binary fields, nullable fields, arrays, enums, and common CLR scalars without materializing managed objects.</p>
-      <p>Convenience materializers such as `Load`, `LoadMany`, and `LoadRange` are also generated. They allocate normal classes, strings, arrays, and lists by design and are not part of the zero-allocation read guarantee.</p>
+});</pre>
+      <p>The steady-state engine read target is zero managed allocations after pools and caches are warmed and the caller uses non-capturing callbacks. Convenience materializers such as `Load`, `LoadMany`, and `LoadRange` intentionally allocate normal POCOs, strings, arrays, and lists.</p>
     </section>
 
     <section id="transactions">
-      <h2>Transactions And Durability</h2>
-      <p>KessDB uses a single-writer, multi-reader model. Writers serialize through a write gate and append committed changes to the WAL. Readers use immutable read states and merge committed WAL overlay entries over base chunks. This provides read-committed behavior without MVCC, background server processes, or distributed coordination.</p>
-      <p>Immediate mutations use automatic transactions. Explicit `KessTransaction` tokens batch writes and flush at `Commit(transaction)`. The release durability contract is commit-boundary durability, not a hardware flush after every individual WAL append inside an explicit transaction.</p>
-      <p>Compaction rewrites visible base records and committed WAL overlays into fresh Brotli data and index chunks, then clears the WAL tail. Auto-compaction is opt-in for density-focused workflows because compaction can add commit latency.</p>
+      <h2>Transactions and durability</h2>
+      <p>KessDB uses a single-writer, multi-reader model. Writers append to the WAL and publish immutable read states. Readers merge committed WAL overlays over base chunks and do not take the writer gate.</p>
+      <p>Immediate mutations use automatic transactions. Explicit `KessTransaction` tokens batch writes and flush at `Commit(transaction)`. The durability contract is commit-boundary durability, not a hardware flush after every individual WAL append inside an explicit transaction.</p>
+      <p>Compaction rewrites visible base records and committed WAL overlays into fresh Brotli data and index chunks. Auto-compaction is opt-in because it can add commit latency.</p>
     </section>
 
-    <section id="proof">
-      <h2>Proof And Diagnostics</h2>
-      <p>KessDB includes first-party proof and diagnostic tooling through `KessDB.Tool`. The CLI validates files, reports segment accounting, compacts databases, runs benchmark smoke profiles, salvages readable raw payloads from damaged files, and exercises release-candidate workloads.</p>
+    <section id="proof" class="dark">
+      <h2>Proof and diagnostics</h2>
+      <p class="lead-section">The first-party CLI is designed to make claims inspectable: validate the file, account for bytes, compact safely, salvage readable raw records, and run repeatable release proof workloads.</p>
       <table>
         <thead>
           <tr>
@@ -371,36 +467,36 @@
         <tbody>
           <tr>
             <td><code>kess validate</code></td>
-            <td>Validate header, manifest, schema, chunk tables, CRCs, mini-indexes, index chunks, and WAL recovery status.</td>
+            <td>Checks header, manifest, schema, chunk tables, CRCs, mini-indexes, index chunks, and WAL recovery status.</td>
           </tr>
           <tr>
             <td><code>kess stats</code></td>
-            <td>Report file-size accounting, chunk counts, WAL bytes, index overhead, and compression ratios.</td>
+            <td>Reports file-size accounting, WAL bytes, index overhead, chunk counts, and compression ratios.</td>
           </tr>
           <tr>
             <td><code>kess benchmark-smoke --canonical-v0.1</code></td>
-            <td>Generate deterministic release proof data for size, point reads, batch reads, range reads, cache reads, WAL overlay reads, and index reads.</td>
+            <td>Produces deterministic size and lookup timing data for the release profile.</td>
           </tr>
           <tr>
             <td><code>kess proof-rc</code></td>
-            <td>Exercise concurrent reads, commits, deletes, compaction, reopen recovery, validation, uniqueness checks, rich generated documents, and salvage on corrupt copies.</td>
+            <td>Exercises concurrent reads, commits, deletes, compaction, reopen recovery, validation, uniqueness checks, and salvage on corrupt copies.</td>
           </tr>
         </tbody>
       </table>
-      <p>Compression claims are currently worded as "up to 96.5%" unless the checked-in canonical benchmark report demonstrates that exact threshold. Current release gates favor honest repeatability over fragile headline metrics.</p>
+      <p>Compression wording remains "up to 96.5%" unless the checked-in canonical benchmark report demonstrates that exact threshold.</p>
     </section>
 
     <section id="boundaries">
-      <h2>Boundaries And Non-Goals</h2>
-      <p>KessDB is not intended to replace general-purpose database systems. It has no SQL layer, LINQ query planner, distributed transactions, server daemon, replication protocol, or MVCC snapshot isolation. Its target is local, read-heavy, schema-owned object data where compact packaging and low-allocation reads matter more than ad hoc query flexibility.</p>
-      <p>Secondary indexes are optimized for read-heavy datasets and moderate update rates, not OLTP-style mutable B-tree workloads. Commit publication rebuilds immutable snapshots so reads remain writer-lock-free.</p>
-      <div class="callout">
+      <h2>Boundaries</h2>
+      <p>KessDB is not a SQL database, distributed store, MVCC engine, server daemon, or query planner. It is a specialized local object-document container for workloads that own their schema and want dense packaging with fast keyed reads.</p>
+      <p>Secondary indexes are optimized for read-heavy datasets and moderate update rates, not OLTP-style mutable B-tree workloads.</p>
+      <div class="warning">
         <strong>Integrity is not security.</strong> CRC validation detects accidental corruption, torn writes, and malformed files. It is not tamper resistance, encryption, signing, authenticity, or a cryptographic file-level integrity guarantee.
       </div>
     </section>
 
-    <section id="licensing">
-      <h2>Licensing And Commercial Status</h2>
+    <section id="licensing" class="licensing">
+      <h2>Licensing and commercial status</h2>
       <p>KessDB is proprietary and source-available for review. Public repository visibility permits viewing on GitHub, and GitHub platform features may apply under GitHub's own terms. No separate license is granted to use, modify, redistribute, sublicense, sell, host, or create derivative works without prior written permission from the copyright owner.</p>
       <p>The project is provided as-is for technical evaluation. There is no production support commitment, warranty, security guarantee, or service-level agreement. Commercial licensing, private evaluation terms, or acquisition discussions require a separate written agreement.</p>
     </section>
