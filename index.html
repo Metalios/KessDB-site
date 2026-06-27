@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="KessDB is a source-available embedded object-document database for .NET NativeAOT apps, single-file .kess storage, Brotli compression, and zero-copy read-heavy workloads.">
+  <meta name="description" content="KessDB is a proprietary embedded object-document database for .NET NativeAOT apps, single-file .kess storage, Brotli compression, and zero-copy read-heavy workloads.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Jason Thompson">
   <link rel="canonical" href="https://metalios.github.io/KessDB-site/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="KessDB - Embedded Object-Document Database for .NET">
-  <meta property="og:description" content="A proprietary, source-available .NET storage engine for single-file .kess databases, Brotli-compressed chunks, NativeAOT, and zero-copy reads.">
+  <meta property="og:description" content="A proprietary .NET storage engine for single-file .kess databases, Brotli-compressed chunks, NativeAOT, and zero-copy reads.">
   <meta property="og:url" content="https://metalios.github.io/KessDB-site/">
   <meta property="og:image" content="https://metalios.github.io/KessDB-site/assets/kessdb-logo.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -39,7 +39,7 @@
         "@type": "TechArticle",
         "@id": "https://metalios.github.io/KessDB-site/#whitepaper",
         "headline": "KessDB Whitepaper: Hyper-dense object-document storage for read-heavy edge software",
-        "description": "Technical whitepaper for KessDB, a proprietary source-available .NET embedded database proof of concept.",
+        "description": "Technical whitepaper for KessDB, a proprietary .NET embedded database proof of concept with private-source evaluation available by agreement.",
         "url": "https://metalios.github.io/KessDB-site/",
         "author": {
           "@type": "Person",
@@ -534,10 +534,10 @@
       </div>
 
       <div class="hero-copy">
-        <p class="eyebrow">Technical whitepaper</p>
+        <p class="eyebrow">Public technical whitepaper</p>
         <p class="hero-kicker">Built for data you ship, not data you babysit.</p>
         <h1>KessDB</h1>
-        <p class="lede">A source-available embedded object-document database for .NET and NativeAOT. KessDB packs typed POCO data into one dense `.kess` file and reads records through zero-copy spans instead of heap-heavy object mapping.</p>
+        <p class="lede">A proprietary embedded object-document database for .NET and NativeAOT. KessDB packs typed POCO data into one dense `.kess` file and reads records through zero-copy spans instead of heap-heavy object mapping.</p>
         <p class="hero-subline">For edge services, game data, packaged reference datasets, and software that needs database-grade structure without database-server infrastructure.</p>
         <div class="hero-actions">
           <a class="button primary" href="#architecture">Explore the design</a>
@@ -570,7 +570,7 @@
     <section id="abstract">
       <h2>The idea</h2>
       <p class="lead-section">KessDB exists for read-heavy applications that carry structured data like an asset: game definitions, rules, catalogs, pricing tables, feature packs, static reference models, and periodically refreshed edge data. The goal is to slash infrastructure footprint while keeping keyed reads fast enough to feel local to the CPU.</p>
-      <p>It is proprietary and source-available for review: a focused storage engine for technical evaluation, commercial licensing, and acquisition conversations.</p>
+      <p>The product source is private. This public site exists as a technical overview for evaluation, commercial licensing, and acquisition conversations.</p>
       <div class="metric-band" aria-label="KessDB proof points">
         <div class="metric-line">
           <strong>Up to 96.5%</strong>
@@ -696,7 +696,7 @@
       <h3>Why Brotli?</h3>
       <p>KessDB uses independent Brotli-compressed chunks to preserve high density while retaining random-access behavior. The default chunk target is tuned around 64 KiB to balance storage footprint and lookup latency.</p>
       <h3>Can I use this commercially?</h3>
-      <p>Not without a separate written agreement. The project is proprietary and source-available for review, not open source.</p>
+      <p>Not without a separate written agreement. KessDB is proprietary, private-source software, not open source.</p>
     </section>
 
     <section id="boundaries">
@@ -710,14 +710,14 @@
 
     <section id="licensing" class="licensing">
       <h2>Licensing and commercial status</h2>
-      <p>KessDB is proprietary and source-available for review. Public repository visibility permits viewing on GitHub, and GitHub platform features may apply under GitHub's own terms. No separate license is granted to use, modify, redistribute, sublicense, sell, host, or create derivative works without prior written permission from the copyright owner.</p>
+      <p>KessDB is proprietary, private-source software. This public site publishes a technical overview only. Access to product source code, private technical review materials, commercial licensing, or acquisition diligence requires a separate written agreement with the copyright owner.</p>
       <p>The project is provided as-is for technical evaluation. There is no production support commitment, warranty, security guarantee, or service-level agreement. Commercial licensing, private evaluation terms, or acquisition discussions require a separate written agreement.</p>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <p>Copyright (c) 2026 Jason Thompson. All rights reserved. KessDB is proprietary source-available software for review only.</p>
+      <p>Copyright (c) 2026 Jason Thompson. All rights reserved. KessDB is proprietary private-source software. This site is a public technical overview.</p>
     </div>
   </footer>
 </body>
