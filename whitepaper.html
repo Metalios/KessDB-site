@@ -6,38 +6,27 @@
   <meta name="description" content="KessDB whitepaper: a proprietary, source-available embedded object-document database for dense Brotli-compressed .kess files and zero-copy read-heavy workloads.">
   <title>KessDB Whitepaper</title>
   <style>
-    :root {
-      color-scheme: light;
-      --ink: #162029;
-      --muted: #52616d;
-      --line: #d8e0e7;
-      --panel: #ffffff;
-      --paper: #f5f7fa;
-      --accent: #006f8f;
-      --accent-2: #814c00;
-      --code: #eef3f6;
-    }
-
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       line-height: 1.6;
-      color: var(--ink);
-      background: var(--paper);
+      color: #162029;
+      background: #f5f7fa;
     }
 
     header {
       background: #10202b;
       color: #f9fbfd;
-      border-bottom: 6px solid var(--accent);
+      border-bottom: 6px solid #006f8f;
     }
 
     .wrap {
-      width: min(1120px, calc(100% - 40px));
+      width: 1120px;
+      max-width: 94%;
       margin: 0 auto;
     }
 
@@ -57,7 +46,7 @@
     h1 {
       margin: 0;
       max-width: 920px;
-      font-size: clamp(2.3rem, 7vw, 5rem);
+      font-size: 4.6rem;
       line-height: 0.96;
       letter-spacing: 0;
     }
@@ -65,24 +54,23 @@
     .lede {
       max-width: 850px;
       margin: 28px 0 0;
-      font-size: clamp(1.08rem, 2.4vw, 1.34rem);
+      font-size: 1.25rem;
       color: #d9e5ec;
     }
 
     .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       margin-top: 30px;
       color: #c8d6df;
       font-size: 0.95rem;
     }
 
     .pill {
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      display: inline-block;
+      margin: 0 8px 8px 0;
+      border: 1px solid #596873;
       border-radius: 999px;
       padding: 7px 12px;
-      background: rgba(255, 255, 255, 0.06);
+      background: #172a36;
     }
 
     main {
@@ -92,8 +80,8 @@
     nav {
       margin: 0 0 30px;
       padding: 18px;
-      border: 1px solid var(--line);
-      background: var(--panel);
+      border: 1px solid #d8e0e7;
+      background: #ffffff;
     }
 
     nav strong {
@@ -104,7 +92,7 @@
     nav a {
       display: inline-block;
       margin: 4px 18px 4px 0;
-      color: var(--accent);
+      color: #006f8f;
       text-decoration: none;
       font-weight: 700;
     }
@@ -112,13 +100,13 @@
     section {
       margin: 34px 0;
       padding: 30px;
-      background: var(--panel);
-      border: 1px solid var(--line);
+      background: #ffffff;
+      border: 1px solid #d8e0e7;
     }
 
     h2 {
       margin: 0 0 14px;
-      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      font-size: 2rem;
       line-height: 1.12;
     }
 
@@ -143,7 +131,7 @@
     code {
       padding: 2px 5px;
       border-radius: 4px;
-      background: var(--code);
+      background: #eef3f6;
       font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
       font-size: 0.92em;
     }
@@ -176,7 +164,7 @@
       padding: 12px;
       text-align: left;
       vertical-align: top;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid #d8e0e7;
     }
 
     th {
@@ -185,15 +173,17 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
       margin-top: 20px;
     }
 
     .metric {
+      display: inline-block;
+      width: 31.5%;
+      min-height: 150px;
+      margin: 0 1.2% 16px 0;
       padding: 18px;
-      border: 1px solid var(--line);
+      vertical-align: top;
+      border: 1px solid #d8e0e7;
       background: #fbfcfd;
     }
 
@@ -201,37 +191,52 @@
       display: block;
       font-size: 1.55rem;
       line-height: 1.1;
-      color: var(--accent);
+      color: #006f8f;
     }
 
     .metric span {
       display: block;
       margin-top: 8px;
-      color: var(--muted);
+      color: #52616d;
       font-size: 0.95rem;
     }
 
     .callout {
       margin-top: 18px;
       padding: 16px;
-      border-left: 5px solid var(--accent-2);
+      border-left: 5px solid #814c00;
       background: #fff8ec;
       color: #3b2a12;
     }
 
     footer {
       padding: 28px 0 42px;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
+      color: #52616d;
+      border-top: 1px solid #d8e0e7;
     }
 
     footer a {
-      color: var(--accent);
+      color: #006f8f;
     }
 
     @media (max-width: 760px) {
       .wrap {
-        width: min(100% - 24px, 1120px);
+        width: auto;
+        max-width: none;
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+
+      h1 {
+        font-size: 2.3rem;
+      }
+
+      .lede {
+        font-size: 1.08rem;
+      }
+
+      h2 {
+        font-size: 1.55rem;
       }
 
       .hero {
@@ -243,7 +248,14 @@
       }
 
       .grid {
-        grid-template-columns: 1fr;
+        display: block;
+      }
+
+      .metric {
+        display: block;
+        width: auto;
+        min-height: 0;
+        margin-right: 0;
       }
 
       table {
