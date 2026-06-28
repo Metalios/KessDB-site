@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://metalios.github.io/KessDB-site/sitemap.xml
+Sitemap: https://kessdb.com/sitemap.xml

@@ -1,4 +1,4 @@
-# KessDB Site
+# KessDB
 
 This repository contains the public-facing KessDB whitepaper site.
 
@@ -15,6 +15,8 @@ Recommended Pages settings:
 - Folder: `/`
 
 The site entry point is `index.html`.
+
+Custom domain: `kessdb.com`
 
 ## Rights
 
